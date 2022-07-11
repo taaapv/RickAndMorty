@@ -9,40 +9,48 @@ import UIKit
 
 class DetailedInformationViewController: UIViewController {
     
-    @IBOutlet weak var imageOfCharacter: UIImageView!
-    @IBOutlet weak var speciesOfCharacter: UILabel!
-    @IBOutlet weak var nameOfCharacter: UILabel!
-    @IBOutlet weak var genderOfCharacter: UILabel!
-    @IBOutlet weak var statusOfCharacter: UILabel!
-    @IBOutlet weak var locationOfCharacter: UILabel!
-    @IBOutlet weak var countOfEpisodes: UILabel!
+    @IBOutlet weak var imageOfCharacterImageView: UIImageView!
+    @IBOutlet weak var speciesOfCharacterLabel: UILabel!
+    @IBOutlet weak var nameOfCharacterLabel: UILabel!
+    @IBOutlet weak var genderOfCharacterLabel: UILabel!
+    @IBOutlet weak var statusOfCharacterLabel: UILabel!
+    @IBOutlet weak var locationOfCharacterLabel: UILabel!
+    @IBOutlet weak var countOfEpisodesLabel: UILabel!
     
-    var labelNameOfCharacter: String?
-    var labelSpeciesOfCharacter: String?
-    var labelGenderOfCharacter: String?
-    var labelStatusOfCharacter: String?
-    var labelLocationOfCharacter: String?
-    var labelCountOfEpisodes: String?
+    var imageOfCharacterUrl: String?
+    var nameOfCharacter: String?
+    var speciesOfCharacter: String?
+    var genderOfCharacter: String?
+    var statusOfCharacter: String?
+    var locationOfCharacter: String?
+    var countOfEpisodes: String?
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            if let text = labelNameOfCharacter {
-                self.nameOfCharacter.text = text
+            if let text = nameOfCharacter {
+                self.nameOfCharacterLabel.text = text
             }
-            if let text = labelSpeciesOfCharacter {
-                self.speciesOfCharacter.text = text
+            if let text = speciesOfCharacter {
+                self.speciesOfCharacterLabel.text = text
             }
-            if let text = labelGenderOfCharacter {
-                self.genderOfCharacter.text = text
+            if let text = genderOfCharacter {
+                self.genderOfCharacterLabel.text = text
             }
-            if let text = labelStatusOfCharacter {
-                self.statusOfCharacter.text = text
+            if let text = statusOfCharacter {
+                self.statusOfCharacterLabel.text = text
             }
-            if let text = labelLocationOfCharacter {
-                self.locationOfCharacter.text = text
+            if let text = locationOfCharacter {
+                self.locationOfCharacterLabel.text = text
             }
-            if let text = labelCountOfEpisodes {
-                self.countOfEpisodes.text = text
+            if let text = countOfEpisodes {
+                self.countOfEpisodesLabel.text = text
+            }
+            DispatchQueue.global().async {
+                guard let imageUrl = URL(string: self.imageOfCharacterUrl!) else { return }
+                guard let imageData = try? Data(contentsOf: imageUrl) else { return }
+                DispatchQueue.main.async {
+                    self.imageOfCharacterImageView.image = UIImage(data: imageData)
+                }
             }
         }
 }

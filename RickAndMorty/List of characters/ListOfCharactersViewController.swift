@@ -40,23 +40,14 @@ class ListOfCharactersViewController: UITableViewController {
         guard let detailInfoVC = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailedInformationViewController else { return }
         detailInfoVC.title = "Character"
         
-        detailInfoVC.labelNameOfCharacter = character.name
-        detailInfoVC.labelSpeciesOfCharacter = character.species?.rawValue
-        detailInfoVC.labelGenderOfCharacter = character.gender?.rawValue
-        detailInfoVC.labelStatusOfCharacter = character.status?.rawValue
-        detailInfoVC.labelLocationOfCharacter = character.location?.name
+        detailInfoVC.imageOfCharacterUrl = character.image
+        detailInfoVC.nameOfCharacter = character.name
+        detailInfoVC.speciesOfCharacter = character.species?.rawValue
+        detailInfoVC.genderOfCharacter = character.gender?.rawValue
+        detailInfoVC.statusOfCharacter = character.status?.rawValue
+        detailInfoVC.locationOfCharacter = character.location?.name
         let countOfEpisodes = character.episode?.count
-        detailInfoVC.labelCountOfEpisodes = String(describing: countOfEpisodes)
-        
-        DispatchQueue.global().async {
-            guard let image = character.image,
-                  let imageUrl = URL(string: image) else { return }
-            guard let imageData = try? Data(contentsOf: imageUrl) else { return }
-            
-            DispatchQueue.main.async {
-                detailInfoVC.imageOfCharacter.image = UIImage(data: imageData)
-            }
-        }
+        detailInfoVC.countOfEpisodes = String(describing: countOfEpisodes)
         
         show(detailInfoVC, sender: nil)
         
